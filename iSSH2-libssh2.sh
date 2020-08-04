@@ -68,8 +68,12 @@ do
     else
       HOST="$ARCH-apple-darwin"
     fi
-
-    export DEVROOT="$DEVELOPER/Platforms/$PLATFORM.platform/Developer"
+    if [[ "$DEVELOPER" == *CommandLineTools ]]; then
+        ADEVELOPER="/Applications/Xcode.app/Contents/Developer"
+    else
+        ADEVELOPER=$DEVELOPER
+    fi
+    export CROSS_TOP="${ADEVELOPER}/Platforms/$PLATFORM.platform/Developer"
     export SDKROOT="$DEVROOT/SDKs/$PLATFORM$SDK_VERSION.sdk"
     export CC="$CLANG"
     export CPP="$CLANG -E"
